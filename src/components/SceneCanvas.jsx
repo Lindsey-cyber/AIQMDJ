@@ -1,8 +1,9 @@
 // src/components/SceneCanvas.jsx
 
-import React from 'react'
-import { Canvas } from '@react-three/fiber'
+import React, { useRef } from 'react'
+import { Canvas, useThree, useFrame } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
+import FancyStars from './FancyStars'
 
 export default function SceneCanvas({ children }) {
   return (
@@ -14,9 +15,14 @@ export default function SceneCanvas({ children }) {
         far: 100,
         position: [0, 1.8, 5],
       }}
-      style={{ width: '100vw', height: '100vh', background: '#000000' }}
+      gl={{ preserveDrawingBuffer: true }}
+      style={{ width: '100vw', height: '100vh' }}
     >
-      {/* 光照配置 */}
+      {/* Background & Fog */}
+      <color attach="background" args={['#1f2040']} />
+      <fog attach="fog" args={['#1f2040', 8, 20]} />
+
+      {/* Lighting */}
       <ambientLight intensity={0.3} />
       <directionalLight
         intensity={1.2}
@@ -29,10 +35,14 @@ export default function SceneCanvas({ children }) {
         color={'#ffcc99'}
       />
 
-      {/* 插槽组件，如 BallModel / CardDeck 等 */}
+      {/* Stars */}
+      <FancyStars count={10000} />
+
+      {/* Scene Content */}
       {children}
 
-      {/* 调试控制器（正式发布建议移除） */}
+
+      {/* Dev Controls */}
       <OrbitControls
         enableZoom={false}
         maxPolarAngle={Math.PI / 2.2}

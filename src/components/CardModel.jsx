@@ -8,7 +8,7 @@ import * as THREE from 'three'
 export default function CardModel({
   id = 0,
   url = '/assets/models/card.glb',
-  position = [0, 0, 0],
+  position = [0, -0.5, 0],
   rotation = [0, 0, 0],
   onClick = () => {},
 }) {
@@ -23,17 +23,16 @@ export default function CardModel({
       ref.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1)
     }
   })
-
   return (
-    <primitive
+    <group
       ref={ref}
-      object={scene.clone()}  // 避免多个卡片共享同一实例
       position={position}
       rotation={rotation}
       onClick={() => onClick(id)}
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
-      scale={1}
-    />
+    >
+      <primitive object={scene.clone()} />
+    </group>
   )
 }

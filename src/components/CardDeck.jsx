@@ -6,9 +6,9 @@ import CardModel from './CardModel'
 export default function CardDeck({ onCardClick = () => {} }) {
   // 初始三张卡片的数据（可扩展为状态控制）
   const cardPositions = [
-    [-1.5, 0.5, 0],
-    [0, 0.5, 0],
-    [1.5, 0.5, 0],
+    [-1.5, -3.5, 0],
+    [0, -3.5, 0],
+    [1.5, -3.5, 0],
   ]
 
   const cardRotations = [
